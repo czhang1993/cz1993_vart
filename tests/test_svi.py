@@ -1,4 +1,4 @@
-from cz1993_vart import VI, elbo
+import VI, elbo
 from tests.data import x_train, x_test, y_train, y_test
 
 epochs = 500
