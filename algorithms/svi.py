@@ -8,12 +8,12 @@ class VI(Module):
     def __init__(self):
         super().__init__()
         self.q_mu = Sequential(
-            Linear(1, 16),
+            Linear(3, 16),
             ReLU(),
             Linear(16, 1)
         )
         self.q_log_var = Sequential(
-            Linear(1, 16),
+            Linear(3, 16),
             ReLU(),
             Linear(16, 1)
         )
@@ -39,7 +39,6 @@ def ll_normal(y, mu, log_var):
 def elbo(y, y_pred, mu, log_var):
     log_like = ll_normal(y, mu, log_var)
     # specify the prior as Normal(0, 1), and calculate the log prior based on that
-    log_prior = ll_normal(y_pred, 0, torch.log(torch.Tensor(1.)))
+    log_prior = ll_normal(y_pred, 0, torch.log(torch.Tensor([1.])))
     log_p_q = ll_normal(y_pred, mu, log_var)
     return (log_like + log_prior - log_p_q).mean()
-  
