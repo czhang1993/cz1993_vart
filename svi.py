@@ -37,8 +37,8 @@ def ll_normal(y, mu, log_var):
 
 # define the evidence lower bound function
 def elbo(y, y_pred, mu, log_var):
-    log_like = ll_normal(y, mu.log_var)
+    log_like = ll_normal(y, mu, log_var)
     # specify the prior as Normal(0, 1), and calculate the log prior based on that
-    log_prior = ll_normal(y_pred, 0, torch.log((torch.tensor(1.)))
-    log_p_q = ll_normal(y_pred, mu.log_var)
+    log_prior = ll_normal(y_pred, 0, torch.log(torch.Tensor(1.)))
+    log_p_q = ll_normal(y_pred, mu, log_var)
     return (log_like + log_prior - log_p_q).mean()
