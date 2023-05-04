@@ -1,0 +1,14 @@
+from cz1993_vart import VI, elbo
+
+epochs = 500
+
+model = VI()
+optim = torch.optim.Adam(model.parameters())
+
+for epoch in range(epochs):
+    optim.zero_grad()
+    y_pred, mu, log_var = model(x)
+    loss = -elbo(y, y_pred, mu, log_var)
+    loss.backward()
+    optim.step()
+    
