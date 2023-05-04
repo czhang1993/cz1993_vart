@@ -1,5 +1,5 @@
 from cz1993_vart import VI, elbo
-from cz1993_vart.tests import x_train, x_test, y_train, y_test
+from tests.data import x_train, x_test, y_train, y_test
 
 epochs = 500
 
