@@ -1,7 +1,7 @@
 import torch
 from torch.optim import Adam
-from ..svi import VI, elbo
-from .data import x_train, x_test, y_train, y_test
+from algorithms.svi import VI, elbo
+from tests.data import x_train, y_train
 
 x_train = torch.Tensor(x_train)
 y_train = torch.Tensor(y_train)
