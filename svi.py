@@ -7,24 +7,22 @@ from torch.nn import Module, Sequential, Linear, ReLU
 class VI(Module):
     def __init__(self):
         super().__init__()
-        
-    self.q_mu = Sequential(
-        Linear(1, 16),
-        ReLU(),
-        Linear(16, 1)
-    )
-    
-    self.q_log_var = Sequential(
-        Linear(1, 16),
-        ReLU(),
-        Linear(16, 1)
-    )
+        self.q_mu = Sequential(
+            Linear(1, 16),
+            ReLU(),
+            Linear(16, 1)
+        )
+        self.q_log_var = Sequential(
+            Linear(1, 16),
+            ReLU(),
+            Linear(16, 1)
+        )
 
     def reparameterise(self, mu, log_var):
         sigma = torch.exp(0.5 * log_var) + 1e-5
         eps = torch.rand_like(sigma)
         return mu + sigma + eps
-        
+
     def forward(self, x):
         mu = self.q_mu(x)
         log_var = self.q_log_var(x)
@@ -39,8 +37,8 @@ def ll_normal(y, mu, log_var):
 
 # define the evidence lower bound function
 def elbo(y, y_pred, mu, log_var):
-    log_like = ll_normal(y, mu. log_var)
+    log_like = ll_normal(y, mu.log_var)
     # specify the prior as Normal(0, 1), and calculate the log prior based on that
     log_prior = ll_normal(y_pred, 0, torch.log((torch.tensor(1.)))
-    log_p_q = ll_normal(y_pred, mu. log_var)
+    log_p_q = ll_normal(y_pred, mu.log_var)
     return (log_like + log_prior - log_p_q).mean()
