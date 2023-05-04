@@ -1,5 +1,12 @@
 from sklearn.ensemble._forest import RandomForestRegressor
 
+# wrapping structure in sklearn:
+# BaseEstimator
+# BaseEnsemble
+# BaseForest
+# ForestRegressor
+# RandomForestRegressor
+
 
 # define the variational forest regressor class, which is a super class of sklearn.ensemble.RandomForestRegressor
 class VFR(RandomForestRegressor):
