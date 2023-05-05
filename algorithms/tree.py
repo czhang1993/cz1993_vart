@@ -17,7 +17,10 @@ def info_gain(left_child, right_child):
     ig_p = entropy(p_parent)
     ig_l = entropy(p_left)
     ig_r = entropy(p_right)
-    return ig_p - len(left_child) / len(parent) * ig_l - len(right_child) / len(parent) * ig_r
+    out = ig_p
+    out -= len(left_child) / len(parent) * ig_l
+    out -= len(right_child) / len(parent) * ig_r
+    return out
 
 
 def draw_boot(x_train, y_train):
@@ -33,7 +36,7 @@ def draw_boot(x_train, y_train):
     y_boot = y_train[boot_indices]
     x_oob = x_train.iloc[oob_indices].values
     y_oob = y_train[oob_indices]
-    return x_bootstrap, y_boot, x_oob, y_oob
+    return x_boot, y_boot, x_oob, y_oob
 
 
 def oob_score(tree, x_test, y_test):
