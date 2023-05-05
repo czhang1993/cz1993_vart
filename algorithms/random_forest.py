@@ -235,5 +235,5 @@ def predict_tree(tree, x_test):
                 x_test
             )
         else:
-            return tree['right_split']
+            return tree["right_split"]
         
