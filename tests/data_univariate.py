@@ -22,9 +22,9 @@ z = np.dot(x, w) + u
 p = 1 / (1 + np.exp(-z))
 y = p >= 0.5
 
-print(np.unique(y, return_counts=True))
-print(x[:5, :])
-print(y[:5])
+# print(np.unique(y, return_counts=True))  # False: 62; True: 38
+# print(x[:5, :])
+# print(y[:5])
 
 n_train = int((4 / 5) * n)
 n_test = int((1 / 5) * m)
