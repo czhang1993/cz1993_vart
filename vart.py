@@ -1,11 +1,11 @@
 from sklearn.ensemble._forest import RandomForestRegressor
 
-# wrapping structure in sklearn:
-# BaseEstimator
-# BaseEnsemble
-# BaseForest
-# ForestRegressor
-# RandomForestRegressor
+# wrapping structure in sklearn (rank from inner to outer):
+# 0. BaseEstimator
+# 1. BaseEnsemble
+# 2. BaseForest
+# 3. ForestRegressor
+# 4. RandomForestRegressor
 
 
 # define the variational forest regressor class, which is a super class of sklearn.ensemble.RandomForestRegressor
