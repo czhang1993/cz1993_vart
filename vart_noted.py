@@ -7,6 +7,11 @@ from sklearn.ensemble._forest import RandomForestRegressor
 # 3. ForestRegressor
 # 4. RandomForestRegressor
 
+# note:
+# Between [RandomForestRegressor] and [ForestRegressor], there are differences in "attributes" and no difference in "methods".
+# Between [ForestRegressor] and [BaseForest], there are differences in both "attributes" and "methods".
+# Reason: "methods" are more distinctive between regression and classification. "methods" are relatively similar inside regression or classification.
+
 
 # define the variational forest regressor class, which is a super class of sklearn.ensemble.RandomForestRegressor
 class VFR(RandomForestRegressor):
@@ -54,8 +59,3 @@ class VFR(RandomForestRegressor):
             warm_start=warm_start,
             max_samples=max_samples,
         )
-
-
-
-
-
