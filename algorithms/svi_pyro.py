@@ -32,9 +32,3 @@ def guide(data):
         "latent_fairness",
         Beta(alpha_q, beta_q)
     )
-    
-    
-    
-    
-    
-    
