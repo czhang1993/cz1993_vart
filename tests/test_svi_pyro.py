@@ -48,30 +48,30 @@ def model(data):
     alpha0 = torch.tensor(10.0)
     beta0 = torch.tensor(10.0)
     f = pyro.sample(
-        "latent_fairness",
-        Beta(alpha0, beta0)
+        name="latent_fairness",
+        fn=Beta(alpha0, beta0)
     )
     for i in range(len(data)):
         pyro.sample(
             "obs_{}".format(i),
-            Bernoulli(f),
+            fn=Bernoulli(f),
             obs=data[i]
         )
 
 def guide(data):
     alpha_q = pyro.param(
-        "alpha_q",
-        torch.tensor(15.0),
+        name="alpha_q",
+        init_constrained_value=torch.tensor(15.0),
         constraint=positive
     )
     beta_q = pyro.param(
-        "beta_q",
-        torch.tensor(15.0),
+        name="beta_q",
+        init_constrained_value=torch.tensor(15.0),
         constraint=positive
     )
     pyro.sample(
-        "latent_fairness",
-        Beta(alpha_q, beta_q)
+        name="latent_fairness",
+        fn=Beta(alpha_q, beta_q)
     )
 
 adam_params = {
@@ -95,8 +95,8 @@ for step in range(n_steps):
         print(".", end="")
 
 # grab the learned variational parameters
-alpha_q = pyro.param("alpha_q").item()
-beta_q = pyro.param("beta_q").item()
+alpha_q = pyro.param(name="alpha_q").item()
+beta_q = pyro.param(name="beta_q").item()
 
 # here we use some facts about the Beta distribution
 # compute the inferred mean of the coin's fairness
