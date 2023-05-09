@@ -16,3 +16,25 @@ def model(data):
             Bernoulli(f),
             obs=data[i]
         )
+        
+def guide(data):
+    alpha_q = pyro.param(
+        "alpha_q",
+        Tensor(15.0),
+        constraint=constraints.positive
+    )
+    beta_q = pyro.param(
+        "beta_q",
+        Tensor(15.0),
+        constraint=constraints.positive
+    )
+    pyro.sample(
+        "latent_fairness",
+        Beta(alpha_q, beta_q)
+    )
+    
+    
+    
+    
+    
+    
