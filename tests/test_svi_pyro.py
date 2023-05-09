@@ -1,11 +1,11 @@
 import math
 import os
 import torch
-import torch.distributions.constraints as constraints
+from torch.distributions.constraints import positive
 import pyro
 from pyro.optim import Adam
 from pyro.infer import SVI, Trace_ELBO
-import pyro.distributions as dist
+from pyro.distributions.dist import Beta, Bernoulli
 
 
 adam_params = {
@@ -14,7 +14,12 @@ adam_params = {
 }
 optimizer = Adam(adam_params)
 
-svi = SVI(model, guide, optimizer, loss=Trace_ELBO())
+svi = SVI(
+    model,
+    guide,
+    optimizer,
+    loss=Trace_ELBO()
+)
 
 n_steps = 5000
 for step in range(n_steps):
@@ -22,7 +27,10 @@ for step in range(n_steps):
 
 # this is for running the notebook in our testing framework
 smoke_test = ("CI" in os.environ)
-n_steps = 2 if smoke_test else 2000
+if smoke_test:
+    n_steps = 2
+else:
+    n_steps = 2000
 
 assert pyro.__version__.startswith("1.8.4")
 
@@ -39,11 +47,14 @@ for _ in range(4):
 def model(data):
     alpha0 = torch.tensor(10.0)
     beta0 = torch.tensor(10.0)
-    f = pyro.sample("latent_fairness", dist.Beta(alpha0, beta0))
+    f = pyro.sample(
+        "latent_fairness",
+        Beta(alpha0, beta0)
+    )
     for i in range(len(data)):
         pyro.sample(
             "obs_{}".format(i),
-            dist.Bernoulli(f),
+            Bernoulli(f),
             obs=data[i]
         )
 
@@ -51,16 +62,16 @@ def guide(data):
     alpha_q = pyro.param(
         "alpha_q",
         torch.tensor(15.0),
-        constraint=constraints.positive
+        constraint=positive
     )
     beta_q = pyro.param(
         "beta_q",
         torch.tensor(15.0),
-        constraint=constraints.positive
+        constraint=positive
     )
     pyro.sample(
         "latent_fairness",
-        dist.Beta(alpha_q, beta_q)
+        Beta(alpha_q, beta_q)
     )
 
 adam_params = {
