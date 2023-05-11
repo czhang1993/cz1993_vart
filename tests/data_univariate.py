@@ -1,7 +1,7 @@
 import numpy as np
 
 m = 1
-n = 100
+n = 30
 
 np.random.seed(seed=15)
 w = np.random.normal(loc=0, scale=1, size=(m + 1))
@@ -22,7 +22,7 @@ z = np.dot(x, w) + u
 p = 1 / (1 + np.exp(-z))
 y = p >= 0.5
 
-# print(np.unique(y, return_counts=True))  # False: 62; True: 38
+# print(np.unique(y, return_counts=True))  # False: 21; True: 9
 # print(x[:5, :])
 # print(y[:5])
 
