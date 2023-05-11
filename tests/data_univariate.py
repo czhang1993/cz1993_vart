@@ -33,5 +33,5 @@ n_test = int((1 / 5) * m)
 
 x_train = x[:n_train, :]
 x_test = x[n_train:, :]
-y_train = y[n_train:]
-y_test = y[:n_train]
+y_train = y[:n_train]
+y_test = y[n_train:]
