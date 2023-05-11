@@ -22,6 +22,8 @@ z = np.dot(x, w) + u
 p = 1 / (1 + np.exp(-z))
 y = p >= 0.5
 
+x = x[:, 1:]
+
 # print(np.unique(y, return_counts=True))  # False: 21; True: 9
 # print(x[:5, :])
 # print(y[:5])
